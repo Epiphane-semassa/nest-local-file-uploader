@@ -18,7 +18,8 @@ export class FileUploadController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const media = await this.fileUploadService.uploadFile(file);
-    return { id: media.id, link: Environment.baseUrl + `file/${media.id}` };
+    //return { id: media.id, link: Environment.baseUrl + `/file/${media.id}` };
+    return { id: media.id, link: Environment.baseUrl + Environment.mediaServeRoot + `/${file.filename}` };
   }
 
   @Get(':id')
