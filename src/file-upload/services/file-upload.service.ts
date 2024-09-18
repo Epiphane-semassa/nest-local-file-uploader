@@ -23,7 +23,8 @@ export class FileUploadService {
   async getFileById(id: number): Promise<string> {
     const media = await this.mediaRepository.findOne({ where: { id } });
     if (media && existsSync(media.path)) {
-      return Environment.baseUrl + `${media.path}`;
+      //return Environment.baseUrl + `/${media.path}`;
+      return Environment.baseUrl + Environment.mediaServeRoot + `/${media.filename}`;
     }
     throw new Error('File not found');
   }

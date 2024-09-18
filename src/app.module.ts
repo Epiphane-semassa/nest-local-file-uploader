@@ -6,12 +6,18 @@ import { MediaFile } from './entities/media-file.entity';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { Environment } from './environments/environment-dev';
+import * as os from 'os';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', 'nest-local-uploads'),
-      serveRoot: '/nest-local-uploads',
+
+      //if use other folder on hardware
+      //rootPath: path.join(os.homedir(), 'nest-local-uploads'),
+
+      serveRoot: Environment.mediaServeRoot,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
